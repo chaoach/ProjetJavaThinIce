@@ -3,6 +3,10 @@ package java_package;
 //import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
+/**
+ *
+ * @author PC
+ */
 public class Print2DArray { //Vue
 		
     private int nbLig = 15; // sensé etre les nbr des collonnes et lignes du niveau
@@ -17,87 +21,128 @@ public class Print2DArray { //Vue
 
     private boolean isPosValide;
 
-	private static char [][]map;
+    private static char [][]map; //matrice de la map
                
 
 
-        ArrayList<Integer> startPos = new ArrayList<Integer>();
+    ArrayList<Integer> startPos = new ArrayList<Integer>();
         
-        ArrayList<Integer> TPPos = new ArrayList<Integer>();
+    ArrayList<Integer> TPPos = new ArrayList<Integer>();
 
-        public void setMap(){
-            map = lev.getMap(level);
+    /**
+     *
+     */
+    public void setMap(){
+        map = lev.getMap(level); //set la map au niveau correspondant
+    }
+        
+    static boolean gameFinished = false;
+        
+    /**
+     *
+     * @return
+     */
+    public boolean getGameFinished(){ //getter fin du jeu
+        return gameFinished;
+    }
+        
+    /**
+     *
+     */
+    public void setGameFinished(){ //setter fin du jeu
+        gameFinished = true;
+    }
+        
+    /**
+     *
+     * @return
+     */
+    public boolean isAnyMoreLevel(){ //test si il reste des niveaux
+        if(level<5){
+            return true;
+        } else {
+            return false;
         }
+    }
         
-        static boolean gameFinished = false;
-        
-        public boolean getGameFinished(){
-            return gameFinished;
-        }
-        
-        public void setGameFinished(){
-            gameFinished = true;
-        }
-        
-        public boolean isAnyMoreLevel(){
-            if(level<5){
-                return true;
-            } else {
-                return false;
-            }
-        }
-        
-        int xStart = 0;
-        int yStart = 0;
+    int xStart = 0;
+    int yStart = 0;
        
-	public void startLevel(){
-            for (int i = 0; i < map.length; i++) { //this equals to the row in our matrix.
-                for (int j = 0; j < map[i].length; j++) { //this equals to the column in each row.
-                    if (map[i][j] == 'd'){
-                        xStart = i;
-                        yStart = j;
-                    }
-		}
+    /**
+     *
+     */
+    public void startLevel(){ //methode qui trouve le debut du niveau
+        for (int i = 0; i < map.length; i++) { //this equals to the row in our matrix.
+            for (int j = 0; j < map[i].length; j++) { //this equals to the column in each row.
+                if (map[i][j] == 'd'){
+                    xStart = i;
+                    yStart = j;
+                }
             }
         }
+    }
         
-        public int getxStart(){
-            return xStart;
-        }
+    /**
+     *
+     * @return
+     */
+    public int getxStart(){
+        return xStart;
+    }
         
-        public int getyStart(){
-            return yStart;
-        }
+    /**
+     *
+     * @return
+     */
+    public int getyStart(){
+        return yStart;
+    }
         
-        int xTP = 0;
-        int yTP = 0;
+    int xTP = 0;
+    int yTP = 0;
         
-        public void tunnelTP(){
-            for (int i = 0; i < map.length; i++) { //this equals to the row in our matrix.
-                for (int j = 0; j < map[i].length; j++) { //this equals to the column in each row.
-                    if (map[i][j] == 'u'){
-                        xTP = i;
-                        yTP = j;
-                    }
-		}
+    /**
+     *
+     */
+    public void tunnelTP(){ //methode qui trouve la sortie du tunnel
+        for (int i = 0; i < map.length; i++) { //this equals to the row in our matrix.
+            for (int j = 0; j < map[i].length; j++) { //this equals to the column in each row.
+                if (map[i][j] == 'u'){
+                    xTP = i;
+                    yTP = j;
+                }
             }
         }
+    }
         
-        public int getxTP(){
+    /**
+     *
+     * @return
+     */
+    public int getxTP(){
             return xTP;
         }
         
-        public int getyTP(){
+    /**
+     *
+     * @return
+     */
+    public int getyTP(){
             return yTP;
         }        
         
-	public static void afficherMatrice(int score, int potion) {//throws UnsupportedEncodingException {
+    /**
+     *
+     * @param score
+     * @param potion
+     */
+    public static void afficherMatrice(int score, int potion) {// affiche la matrics
             
-            System.out.println("Niveau : " +level);
-            System.out.print("Score = " +score);
+            System.out.println("Niveau : " +level); //affiche le niveau
+            System.out.print("Score = " +score); //affiche le score
             
             if (potion > 0 ){
-                System.out.println(", Potion = " +potion);
+                System.out.println(", Potion = " +potion); //affiche le nombre de pas en étant léger restant
             } else {
                 System.out.println();
             }
@@ -114,18 +159,33 @@ public class Print2DArray { //Vue
             System.out.println();
 	}
 
-		   
-	public static char getCase(int l, int c) { //getter case aux coordonnées demandées
+    /**
+     *
+     * @param l
+     * @param c
+     * @return
+     */
+    public static char getCase(int l, int c) { //getter case aux coordonnées demandées
             return map[l][c];
 	}
         
-        
-
-	public void placer(int l, int c, char t) {
+    /**
+     *
+     * @param l
+     * @param c
+     * @param t
+     */
+    public void placer(int l, int c, char t) { //place le caractere aux coordonnées demandées
             map[l][c] = t;
 	}
         
-        public boolean isPosValide(int l, int c){
+    /**
+     *
+     * @param l
+     * @param c
+     * @return
+     */
+    public boolean isPosValide(int l, int c){ // test de la position
             if(l < 0 || c < 0 || l > map.length || c > map[0].length) {
                     System.out.println("Outside borders"); //si la coordonnée du bloc a placer dépasse les bordures du niveau
                     isPosValide = false;}
@@ -145,42 +205,71 @@ public class Print2DArray { //Vue
             
         }
         
-        public boolean isGlaceEpaisse(int l, int c){
+    /**
+     *
+     * @param l
+     * @param c
+     * @return
+     */
+    public boolean isGlaceEpaisse(int l, int c){ //test glace epaisse
             if (map[l][c] == 'G'){
                 return true;
             } else { return false;}
         }
         
-        public boolean isTondeuse(int l, int c){
+    /**
+     *
+     * @param l
+     * @param c
+     * @return
+     */
+    public boolean isTondeuse(int l, int c){ //test tondeuse
             if (map[l][c] == 'T'){
                 return true;
             } else { return false;}
         }
         
-        public boolean isPotion(int l, int c){
+    /**
+     *
+     * @param l
+     * @param c
+     * @return
+     */
+    public boolean isPotion(int l, int c){ //test potion
             if (map[l][c] == 'P'){
                 return true;
             } else { return false;}
         }
         
-	public void niveauTermine() { // set la valeur endo to true
+    /**
+     *
+     */
+    public void niveauTermine() { // set la valeur endo to true
             end = true;
             level ++;
 	}
         
-        
-        
-        public void newNiveau() { // set la valeur endo to true
+    /**
+     *
+     */
+    public void newNiveau() { // set la valeur endo to true
             end = false;
             setMap();
             startLevel();
 	}
 	
-	public boolean niveauEsTilTermine(){ // retourne la valeur end
+    /**
+     *
+     * @return
+     */
+    public boolean niveauEsTilTermine(){ // retourne la valeur end
             return end;
 	}
         
-        public void setNiveauTermine(){
+    /**
+     *
+     */
+    public void setNiveauTermine(){ //setter niveau terminé
             end = false;
         }
         

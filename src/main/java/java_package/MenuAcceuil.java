@@ -4,11 +4,14 @@ package java_package;
 
 
 import java.util.Scanner;
-import java.io.BufferedWriter;
+/*
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.io.IOException;
-
+import java.io.FileNotFoundException;*/
 /**
  *
  * @author inesmassoud
@@ -43,11 +46,12 @@ public class MenuAcceuil {
         
         //Partie
         System.out.println("Que voulez vous faire ? Nouvelle partie ou continuer une partie sauvegardée ? ( N / S) ");
-        String partie = in.next();
+        String partie =null;
         int stop = 0 ;
         while (stop == 0){
            partie = in.next();
            if (partie.equals("N") || partie.equals("S") ) { 
+               
                stop = 1;
            } 
            else {
@@ -60,25 +64,49 @@ public class MenuAcceuil {
     
     }
     
+    //nom,score,niveau
+    
+    /*
+    
+    public String[] readFile(int indicateur, int valeur, String name){
 
-
-
-    public static void writeFile() {
-        try {
-            String content = "TutorialsPoint is one the best site in the world";
-            File file = new File("C:\\Users\\TutorialsPoint7\\Desktop\\abc.txt");
-            if (!file.exists()) {
-               file.createNewFile();
-            } 
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(content);
-            bw.close();
-            System.out.println("Done");
-        } catch (IOException e) {
+        String line = "";
+        String retour = null;
+        String[] values = null;
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            
+            while((line = br.readLine())!= null){
+                values = line.split(",");
+                
+            }
+        
+        } catch (FileNotFoundException e){
             e.printStackTrace();
-      } 
-   } 
+        } catch (IOException e ){
+            e.printStackTrace();
+        }
+        return values;
+    }
+    
+    
+        String path = System.getProperty("user.dir");
+        String filePath = path + "\\data.txt";
+
+    public void writeFile(String name, int score, int level) throws IOException {
+        
+
+        
+        File file = new File(filePath);
+        FileWriter fw = new FileWriter(file, true); //append to file
+        PrintWriter pw = new PrintWriter(fw);
+        
+        pw.println("" +name +"," +score +"," +level);
+        
+        pw.close();
+       
+        
+   } */
 
     
 }
